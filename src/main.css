@@ -2,10 +2,20 @@ body {
   line-height: 2;
 }
 
+heading {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2em;
+  font-weight: bold;
+}
+
 h1 {
-  color: blue
+  color: blue;
 }
 
 h2 {
-  color: green
+  color: green;
+}
+
+h3 {
+  color: purple;
 }

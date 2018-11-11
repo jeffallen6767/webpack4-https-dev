@@ -1,4 +1,4 @@
 import bar from './bar'
-import style from "./main.css"
+import style from './main.css'
 
-bar('<h1>Hello from HTTPS dev server!</h1>')
+bar('<heading>Hello from webpack4-https-dev!</heading>', style)
