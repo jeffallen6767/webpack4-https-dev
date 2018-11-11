@@ -1,9 +1,9 @@
 const
   fs = require('fs'),
-  path = require('path'),
+  WebpackDashboard = require('webpack-dashboard/plugin'),
+  {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer'),
   HtmlWebPackPlugin = require('html-webpack-plugin'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin'),
-  WebpackDashboard = require('webpack-dashboard/plugin'),
   {env} = process
   
 
@@ -46,6 +46,7 @@ module.exports = {
   },
   plugins: [
     new WebpackDashboard(),
+    new BundleAnalyzerPlugin(),
     new HtmlWebPackPlugin({
       template: './src/index.html',
       filename: './index.html'
