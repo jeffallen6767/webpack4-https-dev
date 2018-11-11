@@ -1,11 +1,14 @@
 const
   fs = require('fs'),
-  {env} = process,
-  HtmlWebPackPlugin = require("html-webpack-plugin"),
-  MiniCssExtractPlugin = require("mini-css-extract-plugin")
+  path = require('path'),
+  HtmlWebPackPlugin = require('html-webpack-plugin'),
+  MiniCssExtractPlugin = require('mini-css-extract-plugin'),
+  WebpackDashboard = require('webpack-dashboard/plugin'),
+  {env} = process
+  
 
 module.exports = {
-  devtool: "source-map",
+  devtool: 'source-map',
   devServer: {
     https: {
       key: fs.readFileSync(env.HTTPS_KEY),
@@ -16,39 +19,40 @@ module.exports = {
   module: {
     rules: [
       {
-        enforce: "pre",
+        enforce: 'pre',
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader"
+        loader: 'eslint-loader'
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
+        loader: 'babel-loader'
       },
       {
         test: /\.html$/,
         use: [
           {
-            loader: "html-loader",
+            loader: 'html-loader',
             options: {minimize: true}
           }
         ]
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"]
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       }
     ]
   },
   plugins: [
+    new WebpackDashboard(),
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
-      filename: "./index.html"
+      template: './src/index.html',
+      filename: './index.html'
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css"
+      filename: '[name].css',
+      chunkFilename: '[id].css'
     })
   ]
 }
