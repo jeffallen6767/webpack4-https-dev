@@ -4,18 +4,27 @@ const
   {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer'),
   HtmlWebPackPlugin = require('html-webpack-plugin'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin'),
-  {env} = process
-  
+  {
+    env: {
+      HTTPS_KEY: httpsKeyPath,
+      HTTPS_CRT: httpsCrtPath,
+      HTTPS_CA: httpsCaPath
+    }
+  } = process,
+  isHttps = httpsKeyPath && httpsCrtPath && httpsCaPath,
+  httpsConfig = isHttps
+    ? {
+      https: {
+        key: fs.readFileSync(httpsKeyPath),
+        cert: fs.readFileSync(httpsCrtPath),
+        ca: fs.readFileSync(httpsCaPath),
+      }
+    } : {},
+  devServerConfig = Object.assign({}, httpsConfig)
 
 module.exports = {
   devtool: 'source-map',
-  devServer: {
-    https: {
-      key: fs.readFileSync(env.HTTPS_KEY),
-      cert: fs.readFileSync(env.HTTPS_CRT),
-      ca: fs.readFileSync(env.HTTPS_CA),
-    }
-  },
+  devServer: devServerConfig,
   module: {
     rules: [
       {
